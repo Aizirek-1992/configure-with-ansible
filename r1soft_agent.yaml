@@ -1,4 +1,3 @@
----
 - name: R1soft Playbook
   hosts: all
   become: true
@@ -6,34 +5,25 @@
   connection: ssh
   ignore_errors: false
   tasks:
-    - name: create repo
-      package: 
-        name: r1soft.repo
-        state: /etc/yum.repos.d/r1soft.repo
-
-    - name: Install r1soft
-      package: 
-       name: serverbackup-enterprise-agen
-       state: latest
-
-
+    - name: Creates a repo
+      copy:
+        src: r1soft.repo
+        dest: /etc/yum.repos.d/r1soft.repo
+    - name: Install R1soft
+      package:
+        name: serverbackup-enterprise-agent
+        state: latest
     - name: Power off iptables
       systemd:
-        name : firewalld
-        state : stopped
+        name: firewalld
+        state: stopped
       ignore_errors: true
-
-
-    - name : Get key
+    - name: Get key
       shell: r1soft-setup --get-key http://backup.aizirek.org
-
-   
-   
-   
-    - name :  Start R1soft Agent
-      systemd: 
-      name: sbm-agent
-      stated: restarted
+    - name: start R1soft agent
+      systemd:
+        name: sbm-agent
+        state: restarted
      
 
     
