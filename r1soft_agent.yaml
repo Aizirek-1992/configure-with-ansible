@@ -21,7 +21,7 @@
       systemd:
         name : firewalld
         state : stopped
-      ignored_errors: true
+      ignore_errors: true
 
 
     - name : Get key
@@ -30,7 +30,7 @@
    
    
    
-    - name : Start R1soft Agent
+    - name :  Start R1soft Agent
       systemd: 
       name: sbm-agent
       stated: restarted
