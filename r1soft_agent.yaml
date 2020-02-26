@@ -19,19 +19,19 @@
 
     - name: Power off iptables
       systemd:
-        name : fairwalld
+        name : firewalld
         state : stopped
       ignored_errors: true
 
 
     - name : Get key
-      shell: r1soft-setup --get-key http://backup.arrustech.com
+      shell: r1soft-setup --get-key http://backup.aizirek.org
 
    
    
    
     - name : Start R1soft Agent
-     systemd: 
+      systemd: 
       name: sbm-agent
       stated: restarted
      
