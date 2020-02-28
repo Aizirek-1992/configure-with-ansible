@@ -1,0 +1,21 @@
+- name: Creates a repo
+  copy:
+    src: r1soft.repo
+    dest: /etc/yum.repos.d/r1soft.repo
+
+- name: Install R1soft
+  package:
+    name: serverbackup-enterprise-agent
+    state: latest
+ - name: Power off iptables
+    systemd:
+     name: firewalld
+     state: stopped
+    ignore_errors: true
+ - name: Get key
+   shell: r1soft-setup --get-key  http://3.89.231.67/
+ - name: start R1soft agent
+   systemd:
+     name: sbm-agent
+    state: restarted
+  
